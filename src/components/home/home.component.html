@@ -1,0 +1,120 @@
+<!-- components/home/home.component.html -->
+<section class="hero">
+  <h1>Welcome to Industry Manufacturer</h1>
+  <p>Leading the way in industrial innovation and excellence.</p>
+  <div class="cta-buttons">
+    <button class="primary-btn">Our Solutions</button>
+    <button class="secondary-btn">Contact Us</button>
+  </div>
+</section>
+
+<section class="about">
+  <h2>About Us</h2>
+  <p>Our company is dedicated to providing state-of-the-art manufacturing solutions.</p>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-industry"></i>
+      </div>
+      <h3>Quality Manufacturing</h3>
+      <p>Premium industrial products delivered with precision and care.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-cogs"></i>
+      </div>
+      <h3>Advanced Technology</h3>
+      <p>Utilizing the latest innovations to optimize production processes.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-medal"></i>
+      </div>
+      <h3>Industry Leader</h3>
+      <p>Recognized excellence with over 20 years of experience.</p>
+    </div>
+  </div>
+</section>
+
+<section class="products">
+  <div class="container">
+    <h2>Featured Products</h2>
+    <p>Discover our premium range of industrial solutions</p>
+
+    <!-- Image Carousel -->
+    <div class="carousel-container">
+      <div class="carousel-slides">
+        <div class="carousel-slide" *ngFor="let slide of slides; let i = index" [ngClass]="{'active': currentSlide === i}">
+          <img [src]="slide.image" [alt]="slide.title">
+          <div class="carousel-caption">
+            <h3>{{slide.title}}</h3>
+            <p>{{slide.description}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <div class="carousel-controls">
+        <button class="carousel-prev" (click)="prevSlide()">❮</button>
+        <button class="carousel-next" (click)="nextSlide()">❯</button>
+      </div>
+
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <span *ngFor="let slide of slides; let i = index"
+              [ngClass]="{'active': currentSlide === i}"
+              (click)="goToSlide(i)"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="container">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="assets/03.jpg" alt="Manufacturing">
+        <h3>Manufacturing</h3>
+        <p>Custom manufacturing solutions tailored to your specific needs.</p>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+      <div class="service-card">
+        <img src="assets/01.jpg" alt="Consulting">
+        <h3>Consulting</h3>
+        <p>Expert advice on optimizing your industrial processes.</p>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+      <div class="service-card">
+        <img src="assets/06.jpg" alt="Maintenance">
+        <h3>Maintenance</h3>
+        <p>Professional maintenance and support for your equipment.</p>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"Industry Manufacturer has transformed our production capabilities. Their solutions are reliable and efficient."</div>
+        <div class="testimonial-author">- John Smith, CEO of TechCorp</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"Working with this team has been a pleasure. Their attention to detail and quality control is unmatched."</div>
+        <div class="testimonial-author">- Sarah Johnson, Operations Director</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Ready to Transform Your Manufacturing?</h2>
+    <p>Contact us today to discuss how we can help your business thrive.</p>
+    <button class="primary-btn">Get in Touch</button>
+  </div>
+</section>
