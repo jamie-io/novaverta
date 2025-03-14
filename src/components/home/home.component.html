@@ -1,10 +1,13 @@
 <!-- components/home/home.component.html -->
 <section class="hero">
-  <h1>Welcome to Industry Manufacturer</h1>
-  <p>Leading the way in industrial innovation and excellence.</p>
+  <h1>Ihr Partner für Elektroinstallation</h1>
+  <p>Präzision und Sicherheit in jeder Leitung</p>
   <div class="cta-buttons">
-    <button class="primary-btn">Our Solutions</button>
-    <button class="secondary-btn">Contact Us</button>
+    <button class="primary-btn">Leistungen</button>
+    <button class="secondary-btn">Kontakt</button>
+  </div>
+  <div class="scroll-indicator">
+    <div class="mouse"></div>
   </div>
 </section>
 
@@ -71,50 +74,72 @@
 
 <section class="services">
   <div class="container">
-    <h2>Our Services</h2>
+    <h2>Unsere Dienstleistungen</h2>
     <div class="services-grid">
       <div class="service-card">
-        <img src="assets/03.jpg" alt="Manufacturing">
-        <h3>Manufacturing</h3>
-        <p>Custom manufacturing solutions tailored to your specific needs.</p>
-        <a href="#" class="learn-more">Learn More</a>
+        <div class="service-card-inner">
+          <img src="assets/04.jpg" alt="Elektroinstallation">
+          <h3>Elektroinstallation</h3>
+          <p>Professionelle Installation von Elektrosystemen nach DIN-Norm</p>
+          <a href="#" class="learn-more">Mehr erfahren <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
-      <div class="service-card">
-        <img src="assets/01.jpg" alt="Consulting">
-        <h3>Consulting</h3>
-        <p>Expert advice on optimizing your industrial processes.</p>
-        <a href="#" class="learn-more">Learn More</a>
+      <!-- Add more service cards -->
+    </div>
+  </div>
+</section>
+
+<section class="calculator">
+  <div class="container">
+    <h2>Kostenrechner</h2>
+    <div class="calculator-grid">
+      <div class="calc-step">
+        <label>Wohnfläche (m²)</label>
+        <input type="range" min="50" max="300" value="100">
       </div>
-      <div class="service-card">
-        <img src="assets/06.jpg" alt="Maintenance">
-        <h3>Maintenance</h3>
-        <p>Professional maintenance and support for your equipment.</p>
-        <a href="#" class="learn-more">Learn More</a>
+      <div class="calc-result">
+        <h3>Geschätzter Preis:</h3>
+        <div class="price">€4.200 - €5.800</div>
+        <button class="primary-btn">Angebot anfordern</button>
       </div>
     </div>
   </div>
 </section>
+
 
 <section class="testimonials">
   <div class="container">
-    <h2>What Our Clients Say</h2>
+    <h2>Kundenstimmen</h2>
     <div class="testimonial-grid">
       <div class="testimonial-card">
-        <div class="testimonial-quote">"Industry Manufacturer has transformed our production capabilities. Their solutions are reliable and efficient."</div>
-        <div class="testimonial-author">- John Smith, CEO of TechCorp</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-quote">"Working with this team has been a pleasure. Their attention to detail and quality control is unmatched."</div>
-        <div class="testimonial-author">- Sarah Johnson, Operations Director</div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="testimonial-quote">"Schnelle Reaktionszeit und präzise Arbeit!"</div>
+        <div class="testimonial-author">- Markus Bauer, München</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta">
+<section class="contact">
   <div class="container">
-    <h2>Ready to Transform Your Manufacturing?</h2>
-    <p>Contact us today to discuss how we can help your business thrive.</p>
-    <button class="primary-btn">Get in Touch</button>
+    <h2>Kontaktieren Sie uns</h2>
+    <form class="contact-form">
+      <div class="form-group">
+        <input type="text" placeholder="Name" class="form-input">
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="E-Mail" class="form-input">
+      </div>
+      <div class="form-group">
+        <textarea placeholder="Nachricht" rows="5" class="form-input"></textarea>
+      </div>
+      <button class="primary-btn">Nachricht senden</button>
+    </form>
   </div>
 </section>

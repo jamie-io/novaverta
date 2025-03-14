@@ -2,12 +2,18 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'); /* styles.css */
 /* Global Styles */
 :root {
-  --primary-color: #2962ff;       /* Electric blue */
-  --secondary-color: #ffd600;     /* Bright yellow */
+  --primary-color: #2962ff;
+  --secondary-color: #ffd600;
   --dark-bg: #1a1a1a;
   --light-bg: #f8f9fa;
   --text-dark: #2d3436;
   --text-light: #ffffff;
+}
+[data-theme="dark"] {
+  --dark-bg: #f8f9fa;
+  --light-bg: #2d3436;
+  --text-dark: #ffffff;
+  --text-light: #2d3436;
 }
 
 * {
@@ -340,4 +346,115 @@ footer {
     left: 1rem;
     padding: 1rem;
   }
+}
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  margin-left: 2rem;
+  font-size: 1.2rem;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mouse {
+  width: 25px;
+  height: 40px;
+  border: 2px solid var(--text-light);
+  border-radius: 15px;
+  position: relative;
+}
+
+.mouse::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: var(--text-light);
+  border-radius: 2px;
+  animation: scroll 2s infinite;
+}
+
+/* 3D Card Effect for Services */
+.service-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.service-card-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.service-card:hover .service-card-inner {
+  transform: rotateY(20deg);
+}
+
+.calculator {
+  background: var(--light-bg);
+  padding: 4rem 0;
+}
+
+.calculator-grid {
+  display: grid;
+  gap: 2rem;
+  background: var(--text-light);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.price {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin: 1rem 0;
+}
+
+.rating {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+/* Contact Form Styles */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Add these animations */
+@keyframes scroll {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+  100% { transform: translateY(0); }
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(41, 98, 255, 0.3);
 }
