@@ -1,0 +1,22 @@
+body, html {
+  height: 100%; /* Make the body and html fill the viewport */
+  margin: 0; /* Remove default margins */
+}
+
+.app-root {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack header, content, and footer vertically */
+  min-height: 100vh; /* Make the app root at least the height of the viewport */
+}
+
+app-header {
+  /* No special styles needed here for sticky, its already in the header css */
+}
+
+router-outlet {
+  flex-grow: 1; /* Allow the content to expand and fill the remaining space */
+}
+
+app-footer {
+  /* No special styles needed here for sticky, its already in the footer css */
+}

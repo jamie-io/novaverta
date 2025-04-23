@@ -1,6 +1,11 @@
 // components/home/home.component.ts
 import { Component, OnInit } from '@angular/core';
 import {CommonModule, NgClass, NgForOf} from '@angular/common';
+import {ImagecarousselComponent} from '../imagecaroussel/imagecaroussel.component';
+import {MatFormField} from '@angular/material/form-field';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MatInput} from '@angular/material/input';
+import {ContactFormComponent} from '../contact-form/contact-form.component';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +14,15 @@ import {CommonModule, NgClass, NgForOf} from '@angular/common';
   imports: [
     NgForOf,
     NgClass,
-    CommonModule,  // Add this
+    CommonModule,
+    ImagecarousselComponent,
+    MatFormField,
+    MatDatepickerInput,
+    MatInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    ContactFormComponent,
+    // Add this
   ],
   styleUrls: ['./home.component.css']
 })
@@ -34,7 +47,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  currentSlide = 0;
+  currentSlide = 1;
   // home.component.ts
   slides = [
     { image: './assets/03.jpg', title: 'Industrial Wiring', description: 'High-quality wiring solutions' },

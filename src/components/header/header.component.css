@@ -1,0 +1,63 @@
+.header {
+  background-color: #f0f0f0; /* Light gray background */
+  padding: 15px 0; /* Padding top and bottom */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: sticky; /* Make it stick to the top */
+  top: 0;
+  z-index: 100; /* Ensure it's above other content */
+}
+
+.header-container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: center; /* Align items vertically */
+  max-width: 1200px; /* Limit the width */
+  margin: 0 auto; /* Center the container */
+  padding: 0 20px; /* Add padding on the sides */
+}
+
+.logo img {
+  height: 50px; /* Adjust logo size */
+}
+
+.navigation ul {
+  list-style: none; /* Remove bullet points */
+  display: flex; /* Use flexbox for navigation items */
+  margin: 0;
+  padding: 0;
+}
+
+.navigation li {
+  margin-left: 20px; /* Spacing between navigation items */
+}
+
+.navigation a {
+  text-decoration: none; /* Remove underline */
+  color: #333; /* Dark gray text */
+  font-weight: 500; /* Medium font weight */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.navigation a:hover {
+  color: #007bff; /* Blue on hover */
+}
+
+.cart a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.cart img {
+  height: 30px; /* Adjust cart icon size */
+  margin-right: 5px;
+}
+
+.cart-count {
+  background-color: #007bff; /* Blue background for cart count */
+  color: white; /* White text */
+  border-radius: 50%; /* Make it a circle */
+  padding: 5px 8px; /* Padding inside the circle */
+  font-size: 12px;
+}

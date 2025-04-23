@@ -1,13 +1,26 @@
-<!-- components/header/header.component.html -->
-<header>
-  <div class="logo">Industry Manufacturer</div>
-  <nav>
-    <a routerLink="/" routerLinkActive="active">Home</a>
-    <a routerLink="/products" routerLinkActive="active">Products</a>
-    <a routerLink="/about" routerLinkActive="active">About</a>
-    <a routerLink="/contact" routerLinkActive="active">Contact</a>
-  </nav>
-  <button class="theme-toggle" (click)="toggleTheme()">
-    <i class="fas fa-moon"></i>
-  </button>
+<header class="header">
+  <div class="header-container">
+    <div class="logo">
+      <!--
+      <img src="../../assets/logos/novavertaLogo.png" alt="Company Logo">-->
+      <img src="../../assets/logos/novalogo.png" alt="Company Logo">
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/products">Produkte</a></li>
+        <li><a routerLink="/services">Services</a></li>
+        <li><a routerLink="/montage">Montage</a></li>
+
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="cart">
+      <a routerLink="/cart">
+        <img src="../../assets/products/pic1.avif" alt="Cart">
+        <span class="cart-count">0</span>
+      </a>
+    </div>
+  </div>
 </header>

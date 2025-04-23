@@ -1,0 +1,124 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Acrylic Paint Set - 24 Colors",
+      "category": "Paints",
+      "price": 29.99,
+      "currency": "USD",
+      "stock": 120,
+      "description": "High-quality acrylic paints with vibrant pigments. Suitable for canvas, wood, and paper.",
+      "image": "acrylic_paint_set.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Oil Paint Set - 12 Tubes",
+      "category": "Paints",
+      "price": 39.99,
+      "currency": "USD",
+      "stock": 80,
+      "description": "Professional-grade oil paints with rich pigmentation and smooth blending.",
+      "image": "oil_paint_set.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Watercolor Paint Set - 36 Colors",
+      "category": "Paints",
+      "price": 24.99,
+      "currency": "USD",
+      "stock": 100,
+      "description": "Transparent and vibrant watercolors, perfect for both beginners and professionals.",
+      "image": "watercolor_paint_set.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Round Paint Brushes - Set of 10",
+      "category": "Brushes",
+      "price": 15.99,
+      "currency": "USD",
+      "stock": 200,
+      "description": "A variety of round brushes for detail work, washes, and smooth strokes.",
+      "image": "round_brushes.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Flat Paint Brushes - Set of 6",
+      "category": "Brushes",
+      "price": 12.99,
+      "currency": "USD",
+      "stock": 180,
+      "description": "High-quality flat brushes ideal for bold strokes and shading.",
+      "image": "flat_brushes.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Premium Stretched Canvas - 16x20 inches",
+      "category": "Canvases",
+      "price": 9.99,
+      "currency": "USD",
+      "stock": 150,
+      "description": "Pre-stretched and triple-primed cotton canvas for all types of paints.",
+      "image": "stretched_canvas.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Canvas Pad - 9x12 inches, 10 Sheets",
+      "category": "Canvases",
+      "price": 8.99,
+      "currency": "USD",
+      "stock": 100,
+      "description": "Portable canvas sheets, perfect for sketches and practice.",
+      "image": "canvas_pad.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Wooden Tabletop Easel",
+      "category": "Easels",
+      "price": 29.99,
+      "currency": "USD",
+      "stock": 50,
+      "description": "Compact and adjustable wooden easel for tabletop painting.",
+      "image": "tabletop_easel.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Studio Floor Easel",
+      "category": "Easels",
+      "price": 79.99,
+      "currency": "USD",
+      "stock": 30,
+      "description": "Sturdy and adjustable floor easel, perfect for large canvases.",
+      "image": "floor_easel.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Palette Knives - Set of 5",
+      "category": "Accessories",
+      "price": 10.99,
+      "currency": "USD",
+      "stock": 120,
+      "description": "Stainless steel palette knives for mixing and applying paint with texture.",
+      "image": "palette_knives.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Artist Paint Palette",
+      "category": "Accessories",
+      "price": 6.99,
+      "currency": "USD",
+      "stock": 150,
+      "description": "Lightweight plastic palette with multiple wells for mixing colors.",
+      "image": "paint_palette.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Brush Cleaner - 250ml",
+      "category": "Accessories",
+      "price": 8.49,
+      "currency": "USD",
+      "stock": 90,
+      "description": "Non-toxic brush cleaner that removes paint without damaging bristles.",
+      "image": "brush_cleaner.jpg"
+    }
+  ]
+}

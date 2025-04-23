@@ -1,0 +1,122 @@
+/* Services Section - Komplettlösung */
+.service-solution {
+  padding: 80px 0;
+  background-color: var(--light);
+}
+
+.service-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.service-header h2 {
+  font-size: 2.2rem;
+  color: var(--dark);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.service-divider {
+  width: 80px;
+  height: 4px;
+  background-color: var(--secondary);
+  margin: 0 auto;
+}
+
+.service-description {
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--dark);
+  text-align: center;
+}
+
+/* 3x2 Grid for Cabin Sets */
+.cabinet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cabinet-item {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.cabinet-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.cabinet-image {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  flex-grow: 1;
+}
+
+.cabinet-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.cabinet-item:hover .cabinet-image img {
+  transform: scale(1.05);
+}
+
+.cabinet-item h4 {
+  padding: 20px;
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--dark);
+  background-color: white;
+  border-top: 1px solid var(--light);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .cabinet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+  }
+}
+
+@media (max-width: 576px) {
+  .cabinet-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
+  }
+
+  .service-description {
+    padding: 30px 20px;
+  }
+
+  .cabinet-image {
+    height: 180px;
+  }
+}

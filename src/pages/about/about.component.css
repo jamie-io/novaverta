@@ -1,0 +1,167 @@
+/* Betreiberpflichten Section */
+.betreiber-section {
+  padding: 80px 0;
+  background-color: var(--light);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  color: var(--dark);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background-color: var(--secondary);
+  margin: 0 auto 15px;
+}
+
+.section-subtitle {
+  color: var(--dark);
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Service Grid Layout */
+.betreiber-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.service-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--accent);
+}
+
+.service-content {
+  color: var(--dark);
+  line-height: 1.7;
+}
+
+.service-content p {
+  margin-bottom: 15px;
+}
+
+.service-content ul {
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.service-content li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+}
+
+.service-content li::before {
+  content: '•';
+  color: var(--primary);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Compliance Card Special Styling */
+.compliance-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.compliance-card .service-icon {
+  margin-top: 10px;
+}
+
+.regulation-list {
+  margin: 20px 0;
+}
+
+.regulation-list li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.regulation-list i {
+  margin-right: 10px;
+  color: var(--secondary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .compliance-card {
+    grid-template-columns: 1fr;
+  }
+
+  .compliance-card .service-icon {
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .betreiber-section {
+    padding: 60px 0;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .betreiber-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    padding: 25px;
+  }
+}

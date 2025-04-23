@@ -1,0 +1,85 @@
+<!-- Category Navigation Bar -->
+<div class="category-bar">
+  <button class="category-btn" [class.active]="selectedCategory === 'all'" (click)="filterByCategory('all')">All Products</button>
+  <button class="category-btn" *ngFor="let category of categories" [class.active]="selectedCategory === category" (click)="filterByCategory(category)">{{ category }}</button>
+</div>
+
+<!-- Bestsellers Section -->
+<div class="section-header">
+  <h2>Bestsellers</h2>
+  <a href="#" class="view-all">View All</a>
+</div>
+
+<!-- Bestsellers Table -->
+<div class="product-table-container">
+  <table class="product-table bestsellers-table">
+    <thead>
+    <tr>
+      <th>Code</th>
+      <th>Image</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of bestsellers">
+      <td class="code-column">{{ product.id }}</td>
+      <td class="image-column">
+        <img [src]="product.image" [alt]="product.name" class="product-table-image">
+        <div class="bestseller-tag">Best Seller</div>
+      </td>
+      <td class="description-column">
+        <strong>{{ product.name }}</strong><br>
+        {{ product.description }}
+      </td>
+      <td class="price-column">
+        <ng-container *ngIf="product.price; else contactPrice">
+          {{ product.price }},00
+        </ng-container>
+        <ng-template #contactPrice>
+          Contact for price
+        </ng-template>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Regular Products Section -->
+<div class="section-header">
+  <h2>{{ selectedCategory === 'all' ? 'All Products' : selectedCategory }}</h2>
+</div>
+
+<!-- Product Table -->
+<div class="product-table-container">
+  <table class="product-table">
+    <thead>
+    <tr>
+      <th>Code</th>
+      <th>Image</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of filteredProducts">
+      <td class="code-column">{{ product.id }}</td>
+      <td class="image-column">
+        <img [src]="product.image" [alt]="product.name" class="product-table-image">
+      </td>
+      <td class="description-column">
+        <strong>{{ product.name }}</strong><br>
+        {{ product.description }}
+      </td>
+      <td class="price-column">
+        <ng-container *ngIf="product.price; else contactPrice">
+          {{ product.price }},00
+        </ng-container>
+        <ng-template #contactPrice>
+          Contact for price
+        </ng-template>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

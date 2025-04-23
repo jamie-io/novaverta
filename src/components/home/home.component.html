@@ -1,75 +1,76 @@
-<!-- components/home/home.component.html -->
 <section class="hero">
-  <h1>Ihr Partner für Elektroinstallation</h1>
-  <p>Präzision und Sicherheit in jeder Leitung</p>
+  <h1>Ihr Partner für professionelle Elektroinstallation</h1>
+  <p>Präzision, Sicherheit und Effizienz in jedem Projekt</p>
   <div class="cta-buttons">
-    <button class="primary-btn">Leistungen</button>
-    <button class="secondary-btn">Kontakt</button>
+    <button class="primary-btn">Unsere Leistungen</button>
+    <br><br>
+    <button class="secondary-btn">Kontakt aufnehmen</button>
   </div>
   <div class="scroll-indicator">
     <div class="mouse"></div>
   </div>
 </section>
 
+
 <section class="about">
-  <h2>About Us</h2>
-  <p>Our company is dedicated to providing state-of-the-art manufacturing solutions.</p>
+  <h2>Über uns</h2>
+  <p>Wir stehen für hochwertige Elektroinstallationen, sichere Netzwerke und nachhaltige Energielösungen.</p>
   <div class="about-grid">
     <div class="about-card">
       <div class="about-icon">
-        <i class="fas fa-industry"></i>
+        <i class="fas fa-bolt"></i>
       </div>
-      <h3>Quality Manufacturing</h3>
-      <p>Premium industrial products delivered with precision and care.</p>
+      <h3>Höchste Qualität</h3>
+      <p>Moderne Elektrotechnik nach aktuellen Normen und Standards.</p>
     </div>
     <div class="about-card">
       <div class="about-icon">
-        <i class="fas fa-cogs"></i>
+        <i class="fas fa-tools"></i>
       </div>
-      <h3>Advanced Technology</h3>
-      <p>Utilizing the latest innovations to optimize production processes.</p>
+      <h3>Innovative Technik</h3>
+      <p>Effiziente Lösungen für Smart Home, Industrie und Gewerbe.</p>
     </div>
     <div class="about-card">
       <div class="about-icon">
-        <i class="fas fa-medal"></i>
+        <i class="fas fa-award"></i>
       </div>
-      <h3>Industry Leader</h3>
-      <p>Recognized excellence with over 20 years of experience.</p>
+      <h3>Fachkompetenz</h3>
+      <p>Mehr als 20 Jahre Erfahrung in der Elektroinstallation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- In your home.component.html -->
+<section class="video-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Unsere Montageprozesse</h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Sehen Sie unsere professionelle Arbeitsweise in Aktion</p>
+    </div>
+
+    <div class="video-container">
+      <!-- Option 1: Embedded YouTube/Vimeo -->
+      <iframe class="video-embed"
+              src="../../assets/video/Novahd2-1.webm"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="video-caption">
+      <p>So realisieren wir Ihre Lackieranlage - vom Aufbau bis zur Inbetriebnahme</p>
     </div>
   </div>
 </section>
 
 <section class="products">
   <div class="container">
-    <h2>Featured Products</h2>
-    <p>Discover our premium range of industrial solutions</p>
-
-    <!-- Image Carousel -->
-    <div class="carousel-container">
-      <div class="carousel-slides">
-        <div class="carousel-slide" *ngFor="let slide of slides; let i = index" [ngClass]="{'active': currentSlide === i}">
-          <img [src]="slide.image" [alt]="slide.title">
-          <div class="carousel-caption">
-            <h3>{{slide.title}}</h3>
-            <p>{{slide.description}}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Arrows -->
-      <div class="carousel-controls">
-        <button class="carousel-prev" (click)="prevSlide()">❮</button>
-        <button class="carousel-next" (click)="nextSlide()">❯</button>
-      </div>
-
-      <!-- Indicators -->
-      <div class="carousel-indicators">
-        <span *ngFor="let slide of slides; let i = index"
-              [ngClass]="{'active': currentSlide === i}"
-              (click)="goToSlide(i)"></span>
-      </div>
+    <h2>Unsere Produkte</h2>
+    <p>Hochwertige Lösungen für elektrische Installationen und Automation.</p>
+    <app-imagecaroussel></app-imagecaroussel>
     </div>
-  </div>
 </section>
 
 <section class="services">
@@ -80,36 +81,18 @@
         <div class="service-card-inner">
           <img src="assets/04.jpg" alt="Elektroinstallation">
           <h3>Elektroinstallation</h3>
-          <p>Professionelle Installation von Elektrosystemen nach DIN-Norm</p>
+          <p>Fachgerechte Planung und Umsetzung elektrischer Anlagen.</p>
           <a href="#" class="learn-more">Mehr erfahren <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-      <!-- Add more service cards -->
+      <!-- Weitere Servicekarten -->
     </div>
   </div>
 </section>
-
-<section class="calculator">
-  <div class="container">
-    <h2>Kostenrechner</h2>
-    <div class="calculator-grid">
-      <div class="calc-step">
-        <label>Wohnfläche (m²)</label>
-        <input type="range" min="50" max="300" value="100">
-      </div>
-      <div class="calc-result">
-        <h3>Geschätzter Preis:</h3>
-        <div class="price">€4.200 - €5.800</div>
-        <button class="primary-btn">Angebot anfordern</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <section class="testimonials">
   <div class="container">
-    <h2>Kundenstimmen</h2>
+    <h2>Kundenmeinungen</h2>
     <div class="testimonial-grid">
       <div class="testimonial-card">
         <div class="rating">
@@ -119,27 +102,12 @@
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>
         </div>
-        <div class="testimonial-quote">"Schnelle Reaktionszeit und präzise Arbeit!"</div>
+        <div class="testimonial-quote">"Kompetente Beratung und exzellente Umsetzung!"</div>
         <div class="testimonial-author">- Markus Bauer, München</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="contact">
-  <div class="container">
-    <h2>Kontaktieren Sie uns</h2>
-    <form class="contact-form">
-      <div class="form-group">
-        <input type="text" placeholder="Name" class="form-input">
-      </div>
-      <div class="form-group">
-        <input type="email" placeholder="E-Mail" class="form-input">
-      </div>
-      <div class="form-group">
-        <textarea placeholder="Nachricht" rows="5" class="form-input"></textarea>
-      </div>
-      <button class="primary-btn">Nachricht senden</button>
-    </form>
-  </div>
-</section>
+<app-contact-form></app-contact-form>
+
