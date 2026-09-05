@@ -1,90 +1,92 @@
-/* Phönix / Nova Verta Deutschland — progressive enhancement only.
-   Every page works with JavaScript disabled; this file adds polish on top. */
+/* Version B — progressive enhancement only.
+   Without JavaScript the pages still render: the first slide stays visible and
+   the navigation stays expanded. */
 (function () {
   'use strict';
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- Sticky header state ------------------------------------------- */
-  var header = document.querySelector('[data-header]');
-
-  if (header) {
-    var ticking = false;
-
-    var syncHeader = function () {
-      header.classList.toggle('is-stuck', window.scrollY > 24);
-      ticking = false;
-    };
-
-    window.addEventListener('scroll', function () {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(syncHeader);
-      }
-    }, { passive: true });
-
-    syncHeader();
-  }
-
-  /* --- Mobile navigation --------------------------------------------- */
+  /* --- Mobile navigation ---------------------------------------------- */
   var toggle = document.querySelector('[data-nav-toggle]');
-  var drawer = document.querySelector('[data-nav-drawer]');
+  var list = document.querySelector('[data-nav-list]');
 
-  if (toggle && drawer) {
-    var setDrawer = function (open) {
-      drawer.classList.toggle('is-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-      document.body.classList.toggle('is-locked', open);
-      drawer.setAttribute('aria-hidden', String(!open));
-    };
-
-    setDrawer(false);
-
+  if (toggle && list) {
     toggle.addEventListener('click', function () {
-      setDrawer(!drawer.classList.contains('is-open'));
+      var open = !list.classList.contains('is-open');
+      list.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
     });
 
-    drawer.addEventListener('click', function (event) {
-      if (event.target.closest('a')) setDrawer(false);
-    });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && drawer.classList.contains('is-open')) {
-        setDrawer(false);
-        toggle.focus();
+    list.addEventListener('click', function (event) {
+      if (event.target.closest('a')) {
+        list.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
       }
     });
+  }
 
-    // Reset when the drawer's breakpoint is passed while it is open.
-    window.matchMedia('(min-width: 64rem)').addEventListener('change', function (event) {
-      if (event.matches) setDrawer(false);
+  /* --- Slider ---------------------------------------------------------- */
+  var slider = document.querySelector('[data-slider]');
+  if (!slider) return;
+
+  var slides = Array.prototype.slice.call(slider.querySelectorAll('.slide'));
+  if (slides.length < 2) return;
+
+  var dotWrap = slider.querySelector('[data-slider-dots]');
+  var index = Math.max(0, slides.findIndex(function (s) {
+    return s.classList.contains('is-active');
+  }));
+  var timer = null;
+  var DELAY = 6500;
+
+  var dots = slides.map(function (slide, i) {
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Bild ' + (i + 1) + ' von ' + slides.length);
+    dot.addEventListener('click', function () { show(i); restart(); });
+    if (dotWrap) dotWrap.appendChild(dot);
+    return dot;
+  });
+
+  function show(next) {
+    index = (next + slides.length) % slides.length;
+    slides.forEach(function (slide, i) {
+      var active = i === index;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+    });
+    dots.forEach(function (dot, i) {
+      if (i === index) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
     });
   }
 
-  /* --- Scroll reveals -------------------------------------------------- */
-  var revealTargets = document.querySelectorAll('[data-reveal], [data-reveal-stagger]');
-
-  if (!revealTargets.length) return;
-
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    revealTargets.forEach(function (el) { el.classList.add('is-in'); });
-  } else {
-    // Index the children of staggered groups so CSS can offset each delay.
-    document.querySelectorAll('[data-reveal-stagger]').forEach(function (group) {
-      Array.prototype.forEach.call(group.children, function (child, index) {
-        child.style.setProperty('--i', String(index));
-      });
-    });
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-in');
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-
-    revealTargets.forEach(function (el) { observer.observe(el); });
+  function restart() {
+    if (timer) clearInterval(timer);
+    if (!reduceMotion) timer = setInterval(function () { show(index + 1); }, DELAY);
   }
+
+  var prev = slider.querySelector('[data-slider-prev]');
+  var next = slider.querySelector('[data-slider-next]');
+  if (prev) prev.addEventListener('click', function () { show(index - 1); restart(); });
+  if (next) next.addEventListener('click', function () { show(index + 1); restart(); });
+
+  slider.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowLeft') { show(index - 1); restart(); }
+    if (event.key === 'ArrowRight') { show(index + 1); restart(); }
+  });
+
+  /* Pause while the visitor is reading or tabbing through the slider. */
+  ['mouseenter', 'focusin'].forEach(function (evt) {
+    slider.addEventListener(evt, function () { if (timer) clearInterval(timer); });
+  });
+  ['mouseleave', 'focusout'].forEach(function (evt) {
+    slider.addEventListener(evt, restart);
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { if (timer) clearInterval(timer); } else { restart(); }
+  });
+
+  show(index);
+  restart();
 }());

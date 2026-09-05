@@ -6,24 +6,20 @@ Generalimporteur for NOVA VERTA paint booths and drying systems in Germany.
 Plain HTML, CSS and vanilla JavaScript. No build step, no framework, no runtime
 dependencies. Copy the repository onto any web host and it works.
 
-## Two versions to choose from
+## The design
 
-| | Where | Look |
-| --- | --- | --- |
-| **A — modern** | repository root (`/`) | Dark industrial. Full-bleed photography, large type, blue accent sampled from the logos. A clear break from the old site. |
-| **B — klassisch** | `klassisch/` | Close to the original novaverta-deutschland.de: blue navbar, grey page with white boxes, uppercase navy headings, image slider, `MEHR` squares. Leads with who the company is, what it does and where to find it. |
+Close to the original novaverta-deutschland.de: blue navbar, grey page with white
+boxes, uppercase navy headings, image slider and `MEHR` squares. It leads with
+who the company is, what it does and where to find it.
 
-Both share `img/`, both carry the same content and contact details, and both are
-independently deployable. Whichever wins, promote it by moving its files to the
-root — version B's asset paths then need `../img/` changed to `img/`.
+A second, darker "modern" variant was built alongside this one and then dropped.
+It is preserved in git history at the tag `archive/modern-variant` if it is ever
+wanted again.
 
-Version B's footer links across to version A so the two can be compared. **Remove
-that "Moderne Variante ansehen" link before going live.**
-
-### Where version B differs in substance
+### What this design does about the brief
 
 The client asked that visitors immediately see that the business is active, what
-it does, and where to find it. So version B additionally has:
+it does, and where to find it. So the site has:
 
 - a phone number in the header, in the navbar, and in a blue band on every page;
 - a "Herzlich willkommen" section stating plainly that the company is operating
@@ -44,8 +40,7 @@ it does, and where to find it. So version B additionally has:
 | `impressum.html` | Imprint (§ 5 DDG) |
 | `datenschutz.html` | Privacy policy (GDPR) |
 
-`klassisch/` holds the same seven pages with its own `css/site.css` and
-`js/site.js`. Images are shared from `img/` in both versions.
+Styles live in `css/site.css`, behaviour in `js/site.js`, images in `img/`.
 
 ## Preview locally
 
@@ -56,15 +51,20 @@ python3 -m http.server 8099
 
 Opening `index.html` directly via `file://` also works.
 
+## Deployment
+
+The site is served by GitHub Pages from the `main` branch, root folder. Every
+push to `main` republishes it. `.nojekyll` is present so Pages copies the files
+verbatim instead of running them through Jekyll.
+
 ## Verify
 
 ```sh
 node test/site-smoke.mjs
 ```
 
-Checks **both versions** (14 pages): every page exists, every internal link and
-anchor resolves relative to its own directory, every asset is present and is a
-real image, every `<img>` has `alt` plus intrinsic dimensions, every form control
+Checks all seven pages: every page exists, every internal link and anchor
+resolves, every asset is present and is a real image, every `<img>` has `alt` plus intrinsic dimensions, every form control
 has a label, and no external script, font or CDN reference has crept back in.
 
 ## Before this goes live
@@ -76,8 +76,8 @@ highlighted `[placeholder]`:
    state both under § 5 DDG.
 2. **`datenschutz.html`** — name and address of the hosting provider, the log
    file retention period, and the publication date.
-2b. **Opening hours** — version B shows `Mo – Do` and `Freitag` as placeholders
-   on the homepage and contact page. Fill them in or delete the card; "where to
+2b. **Opening hours** — `Mo – Do` and `Freitag` are placeholders on the homepage
+   and contact page. Fill them in or delete the card; "where to
    find him" was the client's own priority, so leaving it blank undercuts it.
 3. **Contact form** — `kontakt.html` posts to `mailto:` so it works on plain
    static hosting without a backend and without sending anything to a third
@@ -86,10 +86,8 @@ highlighted `[placeholder]`:
    a small PHP script on the host, and update section 5 of the privacy policy to
    describe where the data goes.
 4. **Logo** — the supplied `img/logo.png` is 292 × 101 px with an opaque white
-   background. The light knock-outs used on the dark layout (`img/logo-light.png`,
-   `img/logo-mark-light.png`, `img/novaverta-light.png`) were derived from it, but
-   a vector original (SVG or EPS) would render noticeably better, especially on
-   high-DPI screens.
+   background. A vector original (SVG or EPS) would render noticeably better,
+   especially on high-DPI screens.
 5. **Photography** — see the note below.
 
 ## Notes on the assets
@@ -101,11 +99,13 @@ highlighted `[placeholder]`:
   are used at that aspect ratio so nothing is cropped or upscaled.
 - `img/neuanlagen.jpg` is **not an image** — it is a saved Wayback Machine error
   page with a `.jpg` extension. It is unused and can be deleted.
+- `img/logo-light.png`, `img/logo-mark-light.png` and `img/novaverta-light.png`
+  were knock-outs for the dropped dark variant and are now unreferenced.
 - Higher-resolution photography would be the single biggest visual improvement.
 
 ## Design decisions worth knowing
 
-- **Version B is reconstructed from the original's own stylesheet.** The archived
+- **The layout is reconstructed from the original's own stylesheet.** The archived
   `css/styles.css` (Wayback capture of 21 Jan 2022, still in git history at
   commit `ff10243`) supplied the real palette — `#006eb3` blue, `#2c367b` navy,
   `#f4f4f4` grey — plus the uppercase wide-tracked headings, the 6px blue rules,
@@ -113,7 +113,7 @@ highlighted `[placeholder]`:
   slashes in the Phönix wordmark. It was rebuilt without Bootstrap, Swiper or
   jQuery; the slider is about 60 lines of vanilla JavaScript.
 - **PT Sans** was the original typeface. It is not bundled here — adding the OFL
-  `woff2` files to `klassisch/css/` and an `@font-face` rule would reproduce the
+  `woff2` files to `css/` and an `@font-face` rule would reproduce the
   original text colour exactly. Until then the stack falls back to Trebuchet MS
   and the system UI face. Do not load it from Google Fonts (see below).
 - **No Google Fonts, no CDN.** Embedding Google Fonts loads the visitor's IP

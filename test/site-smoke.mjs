@@ -13,10 +13,8 @@ const NAMES = [
   'service.html', 'kontakt.html', 'impressum.html', 'datenschutz.html',
 ];
 
-/* Version A lives at the root, version B ("klassisch") in its own folder and
-   shares the image library via ../img/. */
-const VERSIONS = ['', 'klassisch'];
-const PAGES = VERSIONS.flatMap((dir) => NAMES.map((n) => (dir ? `${dir}/${n}` : n)));
+/* The site lives at the repository root and uses the image library in img/. */
+const PAGES = [...NAMES];
 
 const failures = [];
 const fail = (page, msg) => failures.push(`${page}: ${msg}`);
@@ -103,8 +101,8 @@ for (const page of PAGES) {
 }
 
 /* --- shared assets --- */
-for (const asset of ['css/site.css', 'js/site.js', 'klassisch/css/site.css',
-                     'klassisch/js/site.js', 'img/logo.png', 'img/logo_novaverta_.png']) {
+for (const asset of ['css/site.css', 'js/site.js',
+                     'img/logo.png', 'img/logo_novaverta_.png']) {
   if (!existsSync(join(root, asset))) fail('site', `missing shared asset: ${asset}`);
 }
 
@@ -128,5 +126,5 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS — ${PAGES.length} pages across ${VERSIONS.length} versions, `
+console.log(`PASS — ${PAGES.length} pages, `
   + 'no broken links, assets, or external dependencies.');
