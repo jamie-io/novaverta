@@ -1,0 +1,835 @@
+/* ==========================================================================
+   Phönix Industriedienstleistungen GmbH — Nova Verta Deutschland
+   Version B ("klassisch") — close to the original novaverta-deutschland.de.
+
+   Palette, type treatment and the signature components (blue navbar, MEHR
+   squares, rotated quad accents, translucent slide captions, boxed white
+   panels on grey) are taken from the site's own archived stylesheet.
+   Rebuilt without Bootstrap, Swiper, jQuery or any CDN dependency.
+   ========================================================================== */
+
+/* --------------------------------------------------------------- 1. Tokens */
+
+:root {
+  /* Straight from the original stylesheet */
+  --blue: #006eb3;
+  --navy: #2c367b;
+  --blue-pale: #c0ddf8;
+  --nav-link: #c8ccfd;
+  --grey-bg: #f4f4f4;
+  --text: #4a4a4a;
+  --text-soft: #6c6c6c;
+  --rule: #9d9f9e;
+  --rule-soft: #e6e6e6;
+  --footer-title: #898989;
+  --white: #fff;
+
+  --blue-dark: #005a93;
+
+  /* PT Sans was the original face. It is not self-hosted here (no CDN, and
+     Google Fonts embedding is a GDPR problem in Germany) — see the README
+     if you want to add the OFL files to the project. */
+  --font: "PT Sans", "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --shell: 1170px;          /* Bootstrap 3 container width, as before */
+  --gutter: clamp(1rem, 4vw, 2rem);
+  /* Distance from the viewport edge to the container's text column. */
+  --shell-pad: max(var(--gutter), (100vw - var(--shell)) / 2 + var(--gutter));
+
+  --track-body: 0.06em;
+  --track-head: 0.2em;
+
+  --shadow-box: 0 0 58px -13px rgb(0 0 0 / 40%);
+  --shadow-soft: 0 2px 14px rgb(0 0 0 / 8%);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ----------------------------------------------------------- 2. Foundation */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--grey-bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: var(--track-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.is-locked { overflow: hidden; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: var(--navy); }
+
+p { margin: 0 0 1.15em; }
+p:last-child { margin-bottom: 0; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 2px;
+}
+
+::selection { background: var(--blue); color: #fff; }
+
+/* Headings keep the original uppercase, wide-tracked, navy treatment. */
+h1, h2, h3, h4 {
+  margin: 0;
+  color: var(--navy);
+  font-weight: 700;
+  letter-spacing: var(--track-head);
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+h1 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem); }
+h2 { font-size: clamp(1.25rem, 1.1rem + 0.8vw, 1.6rem); }
+h3 { font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem); }
+h4 { font-size: 1rem; }
+
+/* ------------------------------------------------------------- 3. Utilities */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px; left: 8px;
+  z-index: 200;
+  padding: 0.7rem 1.2rem;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease);
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+.grey-wrap { background: var(--grey-bg); }
+.white-wrap { background: var(--white); }
+
+/* The 6px rules that separated every band on the original site */
+.blue-line { height: 6px; background: var(--blue); }
+.blue-line-light { height: 6px; background: var(--blue-pale); }
+
+.section { padding-block: clamp(2.5rem, 2rem + 2.5vw, 4.5rem); }
+.section--tight { padding-block: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem); }
+
+/* Centred, underlined, uppercase — the original .box-titel / h2 pattern */
+.rule-title {
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 2px solid var(--rule);
+  text-align: left;
+}
+
+.rule-title--center { text-align: center; border-bottom-color: var(--navy); }
+
+.lead {
+  max-width: 68ch;
+  font-size: 1.05rem;
+  color: var(--text-soft);
+}
+
+.center { text-align: center; }
+.center .lead { margin-inline: auto; }
+
+/* -------------------------------------------------- 4. Rotated quad accents */
+/* 80x30 parallelograms rotated 10deg, lifted from the original .quad-* rules.
+   They echo the diagonal slashes in the Phönix wordmark. */
+
+.quad-host { position: relative; }
+
+.quad-host::before,
+.quad-host::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  width: 30px;
+  height: 80px;
+  rotate: 10deg;
+  pointer-events: none;
+}
+
+.quad-host::before { top: -15px; left: -25px; background: var(--blue); }
+.quad-host::after { top: 0; right: -23px; background: var(--blue); }
+
+.quad-host--white::before,
+.quad-host--white::after { background: var(--white); }
+
+@media (max-width: 60rem) {
+  .quad-host::before, .quad-host::after { display: none; }
+}
+
+/* -------------------------------------------------------------- 5. Buttons */
+
+.btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  background: var(--blue);
+  border: 0;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.btn:hover { background: var(--navy); color: #fff; }
+
+.btn--ghost {
+  background: transparent;
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  padding-block: calc(0.85rem - 2px);
+}
+.btn--ghost:hover { background: var(--blue); color: #fff; }
+
+.btn--white {
+  background: var(--white);
+  color: var(--navy);
+}
+.btn--white:hover { background: var(--navy); color: #fff; }
+
+/* The original's square "MEHR" badge, overlapping the image above it. */
+.mehr {
+  display: grid;
+  place-content: center;
+  width: 130px;
+  height: 130px;
+  margin: -80px auto 0;
+  position: relative;
+  z-index: 4;
+  background: var(--blue);
+  border: 4px solid var(--white);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.35;
+  transition: background 0.4s var(--ease);
+}
+
+.mehr:hover { background: var(--navy); color: #fff; }
+.mehr small { display: block; font-size: 0.66rem; opacity: 0.85; font-weight: 400; }
+
+@media (max-width: 62rem) {
+  .mehr { width: 104px; height: 104px; margin-top: -62px; font-size: 0.76rem; }
+}
+
+/* ---------------------------------------------------------------- 6. Header */
+
+.head {
+  background: var(--white);
+  padding-block: clamp(1rem, 0.7rem + 1.2vw, 1.75rem);
+}
+
+.head-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
+
+.head-logo img { height: clamp(52px, 4vw, 68px); width: auto; }
+
+.head-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem clamp(1rem, 3vw, 2.5rem);
+}
+
+.head-contact {
+  text-align: right;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+
+.head-contact strong {
+  display: block;
+  color: var(--navy);
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+}
+
+.head-contact a { color: inherit; }
+.head-contact a:hover { color: var(--blue); }
+
+.head-partner img { height: clamp(34px, 3vw, 46px); width: auto; }
+
+@media (max-width: 46rem) {
+  .head-inner { justify-content: center; text-align: center; }
+  .head-contact { text-align: center; }
+}
+
+/* ------------------------------------------------------------ 7. Navigation */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--blue);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav-list { display: flex; flex-wrap: wrap; }
+
+.nav-list a {
+  display: block;
+  padding: 1.05rem clamp(0.9rem, 2vw, 1.6rem);
+  color: var(--nav-link);
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+  transition: background 0.5s var(--ease), color 0.5s var(--ease);
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible { background: var(--navy); color: #fff; }
+.nav-list a[aria-current="page"] { background: var(--navy); color: #fff; }
+
+.nav-phone {
+  display: none;
+  padding: 1.05rem 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.nav-phone:hover { color: var(--blue-pale); }
+
+.nav-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.9rem 0;
+  background: none;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.nav-toggle .bars { display: grid; gap: 4px; }
+.nav-toggle .bars span {
+  display: block; width: 22px; height: 2px; background: currentcolor;
+  transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+}
+.nav-toggle[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 56rem) {
+  .nav-list { flex-direction: column; width: 100%; padding-bottom: 0.75rem; }
+  /* Collapsed only when JS is running — without it the list stays visible
+     instead of leaving mobile visitors with no navigation at all. */
+  .js .nav-list { display: none; }
+  .js .nav-list.is-open { display: flex; }
+  .nav-list a { padding-inline: 0; border-top: 1px solid rgb(255 255 255 / 22%); }
+  .navbar-inner { flex-wrap: wrap; }
+}
+
+@media (min-width: 56.01rem) {
+  .nav-toggle { display: none; }
+  .nav-phone { display: block; }
+}
+
+/* ---------------------------------------------------------------- 8. Slider */
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.slides { display: grid; }
+
+.slide {
+  grid-area: 1 / 1;
+  position: relative;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.7s var(--ease), visibility 0.7s;
+}
+
+.slide.is-active { opacity: 1; visibility: visible; }
+
+.slide > img {
+  width: 100%;
+  /* Native crop of the supplied 2000x500 banners. */
+  aspect-ratio: 4 / 1;
+  min-height: 250px;
+  object-fit: cover;
+}
+
+.slide-caption {
+  position: absolute;
+  left: 0;
+  bottom: clamp(1.5rem, 1rem + 3vw, 2.8rem);
+  z-index: 5;
+  width: min(86%, 900px);
+}
+
+.slide-titel {
+  margin: 0 0 0.5rem;
+  padding-left: var(--shell-pad);
+  color: #fff;
+  font-size: clamp(1.35rem, 0.9rem + 2.4vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 55%);
+  line-height: 1.15;
+}
+
+.slide-desc {
+  margin: 0;
+  padding: 0.6rem clamp(1rem, 2vw, 1.6rem) 0.75rem var(--shell-pad);
+  background: rgb(250 250 250 / 94%);
+  color: var(--navy);
+  font-weight: 400;
+  font-size: clamp(0.86rem, 0.8rem + 0.35vw, 1.02rem);
+  line-height: 1.55;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 6;
+  display: grid;
+  place-content: center;
+  width: 44px; height: 60px;
+  background: rgb(0 110 179 / 78%);
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s var(--ease);
+}
+.slider-btn:hover { background: var(--navy); }
+.slider-btn--prev { left: 0; }
+.slider-btn--next { right: 0; }
+
+.slider-dots {
+  position: absolute;
+  right: var(--shell-pad);
+  bottom: 1rem;
+  z-index: 6;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.slider-dots button {
+  width: 13px; height: 13px;
+  padding: 0;
+  border: 2px solid #fff;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s var(--ease);
+}
+.slider-dots button[aria-current="true"] { background: #fff; }
+
+@media (max-width: 48rem) {
+  .slide > img { aspect-ratio: 3 / 2; min-height: 0; }
+  .slide-caption {
+    position: static;
+    width: 100%;
+    padding: 0.9rem var(--gutter) 1.15rem;
+    background: var(--navy);
+  }
+  .slide-titel { padding-left: 0; text-shadow: none; }
+  .slide-desc {
+    padding: 0.35rem 0 0;
+    background: transparent;
+    color: #fff;
+  }
+  /* Keep the arrows on the photo, clear of the caption. */
+  .slider-btn { top: 0; translate: 0 0; width: 38px; height: 50px; }
+  .slider-dots { display: none; }
+}
+
+/* Static banner for inner pages */
+.page-banner { position: relative; overflow: hidden; background: var(--navy); }
+.page-banner > img {
+  width: 100%;
+  aspect-ratio: 4 / 1;
+  min-height: 190px;
+  object-fit: cover;
+}
+.page-banner .slide-caption { width: min(86%, 860px); }
+
+@media (max-width: 48rem) {
+  .page-banner > img { aspect-ratio: 2 / 1; }
+}
+
+/* ------------------------------------------------------- 9. Blue claim band */
+
+.blue-band {
+  background: var(--blue);
+  color: #fff;
+}
+
+.blue-band .shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-block: 0.9rem;
+}
+
+.blue-band p {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+
+.blue-band a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.blue-band a:hover { color: var(--blue-pale); }
+
+.blue-band .profi { height: 30px; width: auto; }
+
+@media (max-width: 48rem) {
+  .blue-band .shell { justify-content: center; text-align: center; }
+}
+
+/* ------------------------------------------------------------- 10. Infobox */
+
+.infobox-grid {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 275px), 1fr));
+}
+
+.infobox {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.infobox-media { position: relative; overflow: hidden; }
+
+.infobox-media img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+
+.infobox:hover .infobox-media img { transform: scale(1.05); }
+
+.infobox-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 1.5rem 1.75rem;
+  text-align: center;
+}
+
+.infobox .box-titel {
+  margin: 1.15rem 0 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid var(--navy);
+}
+
+.infobox p { color: var(--text-soft); font-size: 0.95rem; }
+
+.infobox .btn { margin-top: auto; align-self: center; }
+
+/* ------------------------------------------------------- 11. Boxed panels */
+
+.box {
+  position: relative;
+  background: var(--white);
+  padding: clamp(1.5rem, 1.2rem + 2vw, 2.75rem);
+  box-shadow: var(--shadow-box);
+}
+
+.box-split {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+  align-items: center;
+}
+
+@media (min-width: 56rem) {
+  .box-split { grid-template-columns: 1fr 1fr; }
+  .box-split--flip > figure { order: 2; }
+}
+
+.box-split figure { margin: 0; }
+.box-split figure img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; }
+
+.box-split figcaption {
+  margin-top: 0.6rem;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Watermark panel — replaces the original's oversized Font Awesome glyphs. */
+.sidebox {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.75rem, 1.4rem + 2vw, 3rem);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.sidebox .mark {
+  position: absolute;
+  right: -0.5rem;
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(140px, 22vw, 230px);
+  color: var(--grey-bg);
+  filter: drop-shadow(0 5px 10px rgb(150 150 150 / 45%));
+  pointer-events: none;
+}
+
+.sidebox > * { position: relative; z-index: 1; }
+.sidebox .rule-title { max-width: 30ch; }
+
+@media (max-width: 48rem) {
+  .sidebox .mark { opacity: 0.55; right: -2rem; }
+}
+
+/* Checklist with the original's navy square markers */
+.checklist { display: grid; gap: 0.7rem; margin-top: 1.25rem; }
+
+.checklist li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  color: var(--text-soft);
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+.checklist li::before {
+  content: "";
+  width: 10px; height: 10px;
+  margin-top: 0.55em;
+  background: var(--blue);
+}
+
+/* --------------------------------------------------------- 12. Contact band */
+
+.contact-grid {
+  display: grid;
+  gap: clamp(1.25rem, 0.9rem + 1.6vw, 1.9rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 225px), 1fr));
+}
+
+.contact-card {
+  background: var(--white);
+  padding: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+  box-shadow: var(--shadow-soft);
+  border-top: 6px solid var(--blue);
+}
+
+.contact-card h3 {
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px solid var(--rule-soft);
+  font-size: 0.95rem;
+}
+
+.contact-card p, .contact-card li { color: var(--text-soft); font-size: 0.97rem; }
+.contact-card .big {
+  display: block;
+  color: var(--navy);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.contact-card a { color: inherit; }
+.contact-card a:hover { color: var(--blue); }
+
+.hours { display: grid; gap: 0.35rem; }
+.hours li { display: flex; justify-content: space-between; gap: 1rem; }
+.hours strong { color: var(--navy); font-weight: 700; }
+
+/* ------------------------------------------------------------ 13. Form */
+
+.form { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.field { display: grid; gap: 0.35rem; }
+
+.field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.field .req { color: var(--blue); }
+
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #cfd6de;
+  background: var(--white);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: var(--track-body);
+}
+
+.field textarea { min-height: 8.5rem; resize: vertical; }
+
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgb(0 110 179 / 18%);
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+.consent input { width: 1.05rem; height: 1.05rem; margin-top: 0.3rem; accent-color: var(--blue); }
+
+.form-note { font-size: 0.82rem; color: var(--text-soft); }
+
+.spaced { margin-top: 1rem; }
+.btn-wrap { margin-top: 1.5rem; }
+
+/* ------------------------------------------------------------- 14. Legal */
+
+.legal { max-width: 70ch; }
+.legal h2 { margin-top: 2.5rem; font-size: 1.05rem; }
+.legal h2:first-of-type { margin-top: 0; }
+.legal h3 { margin-top: 1.75rem; font-size: 0.95rem; }
+.legal p, .legal li { color: var(--text-soft); }
+.legal h2 + p, .legal h3 + p { margin-top: 0.75rem; }
+.legal ul { display: grid; gap: 0.4rem; margin: 0.9rem 0 1.15rem; padding-left: 1.2rem; list-style: disc; }
+mark {
+  background: var(--blue-pale);
+  color: var(--navy);
+  padding: 0.1em 0.4em;
+  font-weight: 700;
+  font-size: 0.92em;
+}
+
+/* ------------------------------------------------------------- 15. Footer */
+
+.footer { background: var(--grey-bg); padding-block: clamp(2rem, 1.6rem + 2vw, 3rem) 0; }
+
+.footer-grid {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.footer-titel {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--rule-soft);
+  color: var(--footer-title);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: var(--track-head);
+  text-transform: uppercase;
+}
+
+.footer-col p, .footer-col li { font-size: 0.92rem; color: var(--text-soft); line-height: 1.8; }
+.footer-col a { color: var(--text-soft); }
+.footer-col a:hover { color: var(--blue); }
+.footer-col strong { color: var(--navy); }
+.footer-col img { height: 46px; width: auto; margin-bottom: 0.9rem; }
+
+.footer-bottom {
+  margin-top: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  border-top: 1px solid var(--rule-soft);
+}
+
+.footer-bottom .shell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.1rem;
+  font-size: 0.82rem;
+  color: var(--footer-title);
+}
+
+.footer-bottom nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.footer-bottom a { color: var(--footer-title); }
+.footer-bottom a:hover { color: var(--blue); }
+
+/* ---------------------------------------------------- 16. Motion & printing */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media print {
+  .navbar, .slider, .slider-btn, .slider-dots, .skip-link, .btn, .mehr { display: none !important; }
+  body { background: #fff; }
+  .box, .infobox, .sidebox, .contact-card { box-shadow: none; border: 1px solid #ccc; }
+}
